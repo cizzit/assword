@@ -12,64 +12,6 @@ jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 
 DEBUG=True
 CUSSWORDFILE='cusswords.txt'
-def mod_list(word):
-    check_spec = ['.', '^', '$', '*', '+', '?', '*?', '+?', '??', \
-                        '\\', '|', '\A', '\b', '\B', '\d', '\D', '\s', \
-                        '\S', '\w', '\W', '\Z', ']', '[', '(', ')']
-
-    leet_dic = {'a': ('@', '4', '^', 'A'), \
-                'b': ('8', 'B'), \
-                'c': ('(', '<', 'C'), \
-                'd': ('D'), \
-                'e': ('3', 'E'), \
-                'f': ('F'), \
-                'g': ('6', '9', 'G'), \
-                'h': ('#', 'H'), \
-                'i': ('!', '1', 'I'), \
-                'j': ('J'), \
-                'k': ('K'), \
-                'l': ('1', 'L'), \
-                'm': ('M'), \
-                'n': ('N'), \
-                'o': ('0', 'O'), \
-                'p': ('P'), \
-                'q': ('Q'), \
-                'r': ('R'), \
-                's': ('$', '5', 'S'), \
-                't': ('+', '7', 'T'), \
-                'u': ('U'), \
-                'v': ('V'), \
-                'w': ('W'), \
-                'x': ('X'), \
-                'y': ('Y'), \
-                'z': ('2', 'Z')
-                }
-
-    new_list=[]
-
-    for dic in leet_dic:
-        for char in leet_dic[dic]:
-            wordx = re.subn(dic, char, word)
-            s=0
-
-            for x in range(0, wordx[1]):
-                s+=1
-                check = re.sub(dic, char, word, count=s)
-                if len(check) != 0:
-                    new_list.append(check)
-
-            for spec in check_spec:
-                if spec in char:
-                    char = char.replace(spec, ('\\'+spec))
-
-            for x in range(1, wordx[1]):
-                s-=1
-                check = re.sub(char, dic, wordx[0], count=s)
-                if len(check) != 0:
-                    new_list.append(check)
-
-    return new_list
-
 
 def leetify(text):
     rules = (
